@@ -11800,7 +11800,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Import libraries</span>
@@ -11852,7 +11852,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># print student_data</span>
@@ -11860,7 +11860,7 @@ div#notebook {
 <span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># TODO: Calculate number of features</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
 
 <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]:</span> 
@@ -11873,7 +11873,7 @@ div#notebook {
 <span class="n">n_failed</span> <span class="o">=</span> <span class="n">n_students</span> <span class="o">-</span> <span class="n">n_passed</span>
 
 <span class="c1"># TODO: Calculate graduation rate</span>
-<span class="n">grad_rate</span> <span class="o">=</span> <span class="n">n_passed</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
+<span class="n">grad_rate</span> <span class="o">=</span> <span class="n">n_passed</span> <span class="o">*</span><span class="mi">100</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
 
 <span class="c1"># Print the results</span>
 <span class="k">print</span> <span class="s2">&quot;Total number of students: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
@@ -11894,10 +11894,10 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of students: 395
-Number of features: 31
+Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
-Graduation rate of the class: 0.67%
+Graduation rate of the class: 67.09%
 </pre>
 </div>
 </div>
@@ -11920,7 +11920,7 @@ Graduation rate of the class: 0.67%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Extract feature columns</span>
@@ -11940,6 +11940,8 @@ Graduation rate of the class: 0.67%
 <span class="c1"># Show the feature information by printing the first five rows</span>
 <span class="k">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature values:&quot;</span>
 <span class="k">print</span> <span class="n">X_all</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Label values:&quot;</span>
+<span class="k">print</span> <span class="n">y_all</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -11980,6 +11982,14 @@ Feature values:
 4        4  
 
 [5 rows x 30 columns]
+
+Label values:
+0     no
+1     no
+2    yes
+3    yes
+4    yes
+Name: passed, dtype: object
 </pre>
 </div>
 </div>
@@ -12002,7 +12012,7 @@ Feature values:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_features</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
@@ -12030,7 +12040,9 @@ Feature values:
     <span class="k">return</span> <span class="n">output</span>
 
 <span class="n">X_all</span> <span class="o">=</span> <span class="n">preprocess_features</span><span class="p">(</span><span class="n">X_all</span><span class="p">)</span>
+<span class="c1"># y_all = preprocess_features(y_all)</span>
 <span class="k">print</span> <span class="s2">&quot;Processed feature columns ({} total features):</span><span class="se">\n</span><span class="s2">{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="c1"># print &quot;Processed feature columns ({} total features):\n{}&quot;.format(len(y_all.columns), list(y_all.columns))</span>
 </pre></div>
 
 </div>
@@ -12073,7 +12085,7 @@ Feature values:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import any additional functionality you may need here</span>
@@ -12085,13 +12097,16 @@ Feature values:
 <span class="c1"># Set the number of testing points</span>
 <span class="n">num_test</span> <span class="o">=</span> <span class="n">X_all</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_train</span>
 
-<span class="n">features</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">X_all</span><span class="p">[</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="c1"># features = X_all[list(X_all.columns[:-1])]</span>
+<span class="c1"># test = X_all[X_all.columns[-1]]</span>
+
 <span class="c1"># print features.head()</span>
 <span class="c1"># print test.head()</span>
 
 <span class="c1"># TODO: Shuffle and split the dataset into the number of training and testing points above</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.24</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># print X_all.shape</span>
+<span class="c1"># print y_all.shape</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.24</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Show the results of the split</span>
 <span class="k">print</span> <span class="s2">&quot;Training set has {} samples.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -12198,7 +12213,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
@@ -12271,7 +12286,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import the three supervised learning models from sklearn</span>
@@ -12282,12 +12297,15 @@ Testing set has 95 samples.
 
 <span class="c1"># TODO: Initialize the three models</span>
 <span class="n">clf_A</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="c1"># print clf_A</span>
 <span class="n">clf_B</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">clf_C</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="n">clf_C</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># TODO: Set up the training set sizes</span>
 <span class="n">X_train_100</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">y_train_100</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># print X_train_100.head()</span>
+<span class="c1"># print y_train_100.head()</span>
 
 <span class="n">X_train_200</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
 <span class="n">y_train_200</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
@@ -12313,125 +12331,59 @@ Testing set has 95 samples.
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Training a GaussianNB using a training set size of 100. . .
-Trained model in 0.0196 seconds
-Made predictions in 0.0020 seconds.
-F1 score for training set: 0.4484.
-Made predictions in 0.0028 seconds.
-F1 score for test set: 0.0521.
+Trained model in 0.0017 seconds
+Made predictions in 0.0005 seconds.
+F1 score for training set: 0.8550.
+Made predictions in 0.0003 seconds.
+F1 score for test set: 0.7481.
 Training a GaussianNB using a training set size of 200. . .
-Trained model in 0.0028 seconds
-Made predictions in 0.0072 seconds.
-F1 score for training set: 0.2715.
-Made predictions in 0.0017 seconds.
-F1 score for test set: 0.0338.
+Trained model in 0.0008 seconds
+Made predictions in 0.0003 seconds.
+F1 score for training set: 0.8321.
+Made predictions in 0.0003 seconds.
+F1 score for test set: 0.7132.
 Training a GaussianNB using a training set size of 300. . .
-Trained model in 0.0025 seconds
-Made predictions in 0.0036 seconds.
-F1 score for training set: 0.1864.
-Made predictions in 0.0016 seconds.
-F1 score for test set: 0.0283.
+Trained model in 0.0009 seconds
+Made predictions in 0.0004 seconds.
+F1 score for training set: 0.8088.
+Made predictions in 0.0003 seconds.
+F1 score for test set: 0.7500.
 Training a AdaBoostClassifier using a training set size of 100. . .
-Trained model in 0.1222 seconds
-Made predictions in 0.0058 seconds.
-F1 score for training set: 0.1936.
-Made predictions in 0.0054 seconds.
-F1 score for test set: 0.1690.
+Trained model in 0.1428 seconds
+Made predictions in 0.0042 seconds.
+F1 score for training set: 0.9538.
+Made predictions in 0.0042 seconds.
+F1 score for test set: 0.7200.
 Training a AdaBoostClassifier using a training set size of 200. . .
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Trained model in 0.1534 seconds
-Made predictions in 0.0093 seconds.
-F1 score for training set: 0.1086.
-Made predictions in 0.0061 seconds.
-F1 score for test set: 0.2242.
+Trained model in 0.1228 seconds
+Made predictions in 0.0048 seconds.
+F1 score for training set: 0.8826.
+Made predictions in 0.0041 seconds.
+F1 score for test set: 0.8058.
 Training a AdaBoostClassifier using a training set size of 300. . .
-Trained model in 0.1208 seconds
-Made predictions in 0.0132 seconds.
-F1 score for training set: 0.1530.
-Made predictions in 0.0069 seconds.
-F1 score for test set: 0.2219.
+Trained model in 0.1114 seconds
+Made predictions in 0.0051 seconds.
+F1 score for training set: 0.8688.
+Made predictions in 0.0041 seconds.
+F1 score for test set: 0.7794.
 Training a SVC using a training set size of 100. . .
-Trained model in 0.0081 seconds
-Made predictions in 0.0015 seconds.
-F1 score for training set: 0.2992.
-Made predictions in 0.0011 seconds.
-F1 score for test set: 0.2347.
+Trained model in 0.0011 seconds
+Made predictions in 0.0007 seconds.
+F1 score for training set: 0.8591.
+Made predictions in 0.0007 seconds.
+F1 score for test set: 0.7838.
 Training a SVC using a training set size of 200. . .
-Trained model in 0.0113 seconds
-Made predictions in 0.0039 seconds.
-F1 score for training set: 0.2881.
-Made predictions in 0.0020 seconds.
-F1 score for test set: 0.2246.
+Trained model in 0.0029 seconds
+Made predictions in 0.0021 seconds.
+F1 score for training set: 0.8693.
+Made predictions in 0.0011 seconds.
+F1 score for test set: 0.7755.
 Training a SVC using a training set size of 300. . .
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Trained model in 0.0253 seconds
-Made predictions in 0.0229 seconds.
-F1 score for training set: 0.2611.
-Made predictions in 0.0049 seconds.
-F1 score for test set: 0.2265.
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
+Trained model in 0.0060 seconds
+Made predictions in 0.0047 seconds.
+F1 score for training set: 0.8692.
+Made predictions in 0.0017 seconds.
+F1 score for test set: 0.7586.
 </pre>
 </div>
 </div>
@@ -12468,24 +12420,24 @@ F1 score for test set: 0.2265.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.0031</td>
-<td style="text-align:center">0.0015</td>
-<td style="text-align:center">0.4484</td>
-<td style="text-align:center">0.0521</td>
+<td style="text-align:center">0.0017</td>
+<td style="text-align:center">0.0003</td>
+<td style="text-align:center">0.8550</td>
+<td style="text-align:center">0.7481</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.0021</td>
-<td style="text-align:center">0.0015</td>
-<td style="text-align:center">0.2715</td>
-<td style="text-align:center">0.0338</td>
+<td style="text-align:center">0.0008</td>
+<td style="text-align:center">0.0003</td>
+<td style="text-align:center">0.8321</td>
+<td style="text-align:center">0.7132</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.0040</td>
-<td style="text-align:center">0.0019</td>
-<td style="text-align:center">0.1864</td>
-<td style="text-align:center">0.0283</td>
+<td style="text-align:center">0.0009</td>
+<td style="text-align:center">0.0003</td>
+<td style="text-align:center">0.8088</td>
+<td style="text-align:center">0.7500</td>
 </tr>
 </tbody>
 </table>
@@ -12502,24 +12454,24 @@ F1 score for test set: 0.2265.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.1195</td>
-<td style="text-align:center">0.0053</td>
-<td style="text-align:center">0.1936</td>
-<td style="text-align:center">0.1690</td>
+<td style="text-align:center">0.1449</td>
+<td style="text-align:center">0.0048</td>
+<td style="text-align:center">0.9538</td>
+<td style="text-align:center">0.7200</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.1347</td>
-<td style="text-align:center">0.0068</td>
-<td style="text-align:center">0.1086</td>
-<td style="text-align:center">0.2242</td>
+<td style="text-align:center">0.1230</td>
+<td style="text-align:center">0.0043</td>
+<td style="text-align:center">0.8826</td>
+<td style="text-align:center">0.8058</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.1334</td>
-<td style="text-align:center">0.0087</td>
-<td style="text-align:center">0.1530</td>
-<td style="text-align:center">0.2219</td>
+<td style="text-align:center">0.1142</td>
+<td style="text-align:center">0.0051</td>
+<td style="text-align:center">0.8688</td>
+<td style="text-align:center">0.7794</td>
 </tr>
 </tbody>
 </table>
@@ -12536,24 +12488,24 @@ F1 score for test set: 0.2265.
 <tbody>
 <tr>
 <td style="text-align:center">100</td>
-<td style="text-align:center">0.0081</td>
-<td style="text-align:center">0.0011</td>
-<td style="text-align:center">0.2992</td>
-<td style="text-align:center">0.2347</td>
+<td style="text-align:center">0.0046</td>
+<td style="text-align:center">0.0012</td>
+<td style="text-align:center">0.8591</td>
+<td style="text-align:center">0.7838</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
-<td style="text-align:center">0.0113</td>
-<td style="text-align:center">0.0020</td>
-<td style="text-align:center">0.2881</td>
-<td style="text-align:center">0.2246</td>
+<td style="text-align:center">0.0029</td>
+<td style="text-align:center">0.0022</td>
+<td style="text-align:center">0.8693</td>
+<td style="text-align:center">0.7755</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
-<td style="text-align:center">0.0253</td>
-<td style="text-align:center">0.0049</td>
-<td style="text-align:center">0.2611</td>
-<td style="text-align:center">0.2265</td>
+<td style="text-align:center">0.0059</td>
+<td style="text-align:center">0.0043</td>
+<td style="text-align:center">0.8692</td>
+<td style="text-align:center">0.7586</td>
 </tr>
 </tbody>
 </table>
@@ -12586,7 +12538,7 @@ F1 score for test set: 0.2265.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> SVM balances the need for high performance in a reasonable amount of time. Although AdaBoost approaches SVM's f1scores, SVM has higher f1 scores for 100, 200, and 300 data points, and is ~10 times faster in training than AdaBoost. Although Naive bayes trains more quickly, it performs at 1/10th the f1 score, making it much less effective.</p>
+<p><strong>Answer: </strong> AdaBoost has the highest f1score, showing that it balances recall and precision most effectively (beating SVM by .02 and NB by .03 with 300 datapoints). Although AdaBoost takes the longest to train, the dataset is so small that this is not a real concern, and so the f1score should be prioritized.</p>
 
 </div>
 </div>
@@ -12606,8 +12558,8 @@ F1 score for test set: 0.2265.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> Support Vector Machines try to draw a line between data that is 'in' the classification group and outside of it. The simple example is linear--when there is a clear separation between data that is in the group and out of the group, a linear line can divide the classification of the two sets. By drawing this line, SVM's can take something very complicated such as image classification and effectively determine if something should be 'in' or 'out.'</p>
-<p>There are two main goals: 1) to correctly classify the data, and 2) to maximize the margin between the classification line and the data. SVM is trained by drawing a line between a sample data set given a kernel function. The simple kernel function is linear, but more complicated kernel functions allow for parabolic and more complex lines to be drawn to separate data. Then, this same line is applied to tehe test set. Given each data pint, the SVM gives a binary in/out rating. It is effective for complex classification problems, but can be slow with large data sets and also ineffective with lots of features compared to datapoints.</p>
+<p><strong>Answer: </strong> AdaBoost starts simply: given the data, what rule could we make that would help us classify more of the students in the right categories than random chance? For example, can we guess with 60% chance based on the number of absences being less than 5 or over 5 that a student will pass or fail? If so, we'll add it to our model. After running once, our model then runs again, looking for another rule that will help us get closer to classifying students as passing or failing correctly. By running many times, these rules add up and become very accurate in identifying which students will pass and which will fail.</p>
+<p>The model takes longer than many other models, as it must identify an improvement for the entire data set in each iteration, and there are many iterations. However, since we have such a small data set, this total time is still well under a second. Given the rules that AdaBoost gives us, we can then apply them to other data to identify which students are most at risk of dropping out. These rules may be helpful to us in identifying what improvements we can make to the school to help students as well.</p>
 
 </div>
 </div>
@@ -12638,21 +12590,23 @@ F1 score for test set: 0.2265.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;GridSearchCV&#39; and &#39;make_scorer&#39;</span>
 <span class="kn">from</span> <span class="nn">sklearn.grid_search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span> 
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">make_scorer</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 
 <span class="c1"># TODO: Create the parameters list you wish to tune</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]}</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;base_estimator&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)]}</span>
 
 <span class="c1"># TODO: Initialize the classifier</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># TODO: Make an f1 scoring function using &#39;make_scorer&#39; </span>
-<span class="n">f1_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">)</span>
+<span class="n">f1_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="n">greater_is_better</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># TODO: Perform grid search on the classifier using the f1_scorer as the scoring method</span>
 <span class="n">grid_obj</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">f1_scorer</span><span class="p">)</span>
@@ -12662,6 +12616,7 @@ F1 score for test set: 0.2265.
 
 <span class="c1"># Get the estimator</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">grid_obj</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="k">print</span> <span class="n">clf</span><span class="o">.</span><span class="n">base_estimator</span>
 
 <span class="c1"># Report the final F1 score for training and testing after parameter tuning</span>
 <span class="k">print</span> <span class="s2">&quot;Tuned model has a training F1 score of {:.4f}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">predict_labels</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
@@ -12677,51 +12632,13 @@ F1 score for test set: 0.2265.
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Made predictions in 0.0399 seconds.
-Tuned model has a training F1 score of 0.5416.
-Made predictions in 0.0090 seconds.
-Tuned model has a testing F1 score of 0.2274.
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
-/Users/billzito/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:756: DeprecationWarning: The default `weighted` averaging is deprecated, and from version 0.18, use of precision, recall or F-score with multiclass or multilabel data or pos_label=None will result in an exception. Please set an explicit value for `average`, one of (None, &#39;micro&#39;, &#39;macro&#39;, &#39;weighted&#39;, &#39;samples&#39;). In cross validation use, for instance, scoring=&#34;f1_weighted&#34; instead of scoring=&#34;f1&#34;.
-  sample_weight=sample_weight)
+<pre>AdaBoostClassifier(algorithm=&#39;SAMME.R&#39;, base_estimator=None,
+          learning_rate=1.0, n_estimators=50, random_state=0)
+Made predictions in 0.3109 seconds.
+Tuned model has a training F1 score of 0.8793.
+Made predictions in 0.2303 seconds.
+Tuned model has a testing F1 score of 0.7970.
 </pre>
 </div>
 </div>
@@ -12745,7 +12662,7 @@ Tuned model has a testing F1 score of 0.2274.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> Final f1 is .2274, which is higher than the untuned .2265, although not very much so. The optimal C value is 3. It's cool that a simple tuning can have an impact!</p>
+<p><strong>Answer: </strong> Final f1 is .7970, showing an improvment of almost .02 over .7794. This suggests that running AdaBoost on another AdaBoostClassifier is an effective way in improving our model.</p>
 
 </div>
 </div>
